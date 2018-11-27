@@ -1,0 +1,25 @@
+{
+  "name": "edison-calendar",
+  "main": "./lib/main",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "mailspring": ">=1.3.0"
+  },
+  "windowTypes": {
+    "default": true,
+    "composer": true
+  },
+  "description": "Enter a description of your package!",
+  "dependencies": {
+    "fullcalendar": "^3.9.0",
+    "jquery": "^3.3.1",
+    "moment": "^2.22.2",
+    "react": "^16.6.3",
+    "react-router-dom": "^4.3.1"
+  },
+  "license": "MIT"
+}

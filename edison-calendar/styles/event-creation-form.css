@@ -1,0 +1,30 @@
+
+input {
+  padding: 30px;
+  font-size: 14px;
+  height: 50px;
+}
+
+input[name=desc] {
+  padding-bottom: 70px;
+  padding-top: 10px;
+  font-size: 14px;
+  height: 50px;
+}
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  font-size: 12px;
+  transition: 0.2s ease all;
+}
+
+.form-title {
+  text-align: center;
+  font-style: bold;
+  padding: 10px;
+}
+
+.checkbox-floating-label {
+}
