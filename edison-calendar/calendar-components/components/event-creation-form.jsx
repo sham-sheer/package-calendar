@@ -13,8 +13,17 @@ class EventCreationForm extends React.Component {
       endTime: '',
       allDay: false,
       desc: '',
-
+      dateOfEvent: '',
+      showStartMenu: false,
+      showEndMenu: false
     };
+  }
+
+  componentDidMount() {
+    const dateOfEvent = this.props.match.params.date;
+    this.setState({
+      dateOfEvent: dateOfEvent.substring(0, 15)
+    })
   }
 
   handleInputChange = (event) => {
@@ -32,11 +41,51 @@ class EventCreationForm extends React.Component {
     this.props.history.push('/');
   }
 
+  showStartMenu = (event) => {
+    event.preventDefault();
+    this.setState({ showStartMenu: true }, () => {
+      document.addEventListener('click', this.closeStartMenu);
+    });
+  }
+
+  closeStartMenu = () => {
+    this.setState({ showStartMenu: false }, () => {
+      document.removeEventListener('click', this.closeStartMenu);
+    });
+  }
+
+  showEndMenu = (event) => {
+    event.preventDefault();
+    this.setState({ showEndMenu: true }, () => {
+      document.addEventListener('click', this.closeEndMenu);
+    });
+  }
+
+  closeEndMenu = () => {
+    this.setState({ showEndMenu: false }, () => {
+      document.removeEventListener('click', this.closeEndMenu);
+    });
+  }
+
+
+
+  createDropDownList = () => {
+    let list = [];
+    for (let i = 0; i < 48; i++) {
+      let hourInNumber = Math.floor(i/2);
+      let hourInString = (i / 2 >= 10) ? `${hourInNumber}` : `0${hourInNumber}`;
+      let minuteInString = (i % 2 == 0) ? '00' : '30';
+      list.push(<button className="menu-button" onClick={this.saveTimeOfEvent}>{hourInString}:{minuteInString}</button>)
+    }
+
+    return list;
+  }
+
   render() {
     return (
       <div className="event-form">
       <div className="form-title">
-        New Event
+        New Event: {this.state.dateOfEvent}
       </div>
       <form onSubmit={this.handleSubmit.bind(this)}>
         <label className="title-label">
@@ -50,24 +99,50 @@ class EventCreationForm extends React.Component {
         </label>
         <br />
         <label className="start-time-label">
-          <input
-            name="startTime"
-            type="time"
-            value={this.state.startTime}
-            onChange={this.handleInputChange} />
-            <span className="floating-label">Start Time:</span>
+        <div>
+
+          <button onClick={this.showStartMenu} className="start-time-dropdown-button">
+            <span className="floating-label">Start</span>
+          </button>
+
+          {
+            this.state.showStartMenu
+            ? (
+              <div className="menu">
+                {this.createDropDownList()}
+              </div>
+              )
+              : (
+                  null
+                )
+          }
+
+        </div>
         </label>
         <br />
         <label>
-          <input
-            name="endTime"
-            type="time"
-            value={this.state.endTime}
-            onChange={this.handleInputChange} />
-            <span className="floating-label">End Time:</span>
+        <div>
+        
+          <button onClick={this.showEndMenu} className="start-time-dropdown-button">
+            <span className="floating-label">End</span>
+          </button>
+
+          {
+            this.state.showEndMenu
+            ? (
+              <div className="menu">
+                {this.createDropDownList()}
+              </div>
+              )
+              : (
+                  null
+                )
+          }
+
+        </div>
         </label>
         <br />
-        <label>
+        {/*<label>
           <span className="checkbox-floating-label">All Day</span>
           <input
             name="allDay"
@@ -75,7 +150,7 @@ class EventCreationForm extends React.Component {
             checked={this.state.allDay}
             onChange={this.handleInputChange} />
         </label>
-        <br />
+        <br />*/}
         <label>
           <input
             name="desc"
@@ -84,7 +159,7 @@ class EventCreationForm extends React.Component {
             onChange={this.handleInputChange} />
             <span className="floating-label">Add description</span>
         </label>
-        <input type="submit" value ="Submit" />
+        <input type="submit" value ="Submit" className="submit-button" />
       </form>
       </div>
     );

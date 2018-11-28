@@ -12,19 +12,19 @@ class CalendarView extends Component {
     calendarEvents: [
       {
       title: 'Event1',
-      start: '2018-11-04'
+      start: 'Wed Nov 28 2018 00:00:00 GMT+0000',
+      end: 'Wed Nov 28 2018 03:00:00 GMT+0000'
       },
       {
       title: 'Event2',
-      start: '2018-11-25'
+      start: 'Mon Nov 26 2018 00:00:00 GMT+0000',
+      end: 'Mon Nov 26 2018 04:00:00 GMT+0000'
       }
     ],
-    createEvent: false
   }
 
   onDayClick = (date, jsEvent, view) => {
-    alert('Clicked on: ' + date.format());
-    this.props.history.push('/create-event');
+    this.props.history.push(`/${date}`);
   }
 
   componentDidMount(){
@@ -43,9 +43,6 @@ class CalendarView extends Component {
 
 
   render() {
-    if(this.state.createEvent) {
-      return <EventCreationForm />
-    }
     return <div id='calendar'></div>;
   }
 }

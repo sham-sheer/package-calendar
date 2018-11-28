@@ -8,7 +8,7 @@ export default () => (
   <App>
     <Switch>
       <Route exact path="/" component={CalendarView} />
-      <Route path="/create-event" component={EventCreationForm} />
+      <Route path="/:date" component={EventCreationForm} />
     </Switch>
   </App>
 );
