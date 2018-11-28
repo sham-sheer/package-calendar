@@ -11,11 +11,13 @@ class EventCreationForm extends React.Component {
       title: '',
       startTime: '',
       endTime: '',
+      selectedStartTime: '',
+      selectedEndTime: '',
       allDay: false,
       desc: '',
       dateOfEvent: '',
       showStartMenu: false,
-      showEndMenu: false
+      showEndMenu: false,
     };
   }
 
@@ -75,10 +77,23 @@ class EventCreationForm extends React.Component {
       let hourInNumber = Math.floor(i/2);
       let hourInString = (i / 2 >= 10) ? `${hourInNumber}` : `0${hourInNumber}`;
       let minuteInString = (i % 2 == 0) ? '00' : '30';
-      list.push(<button className="menu-button" onClick={this.saveTimeOfEvent}>{hourInString}:{minuteInString}</button>)
+      list.push(<button className="menu-button">{hourInString}:{minuteInString}</button>)
     }
-
     return list;
+  }
+
+  saveTimeOfEvent = (hour, minute) => {
+    let timeInString = `${hour}:${minute}`;
+    if(this.state.showStartMenu) {
+      this.setState({
+        selectedStartTime: timeInString
+      })
+    }
+    else {
+      this.setState({
+        selectedEndTime: timeInString
+      })
+    }
   }
 
   render() {
@@ -122,7 +137,7 @@ class EventCreationForm extends React.Component {
         <br />
         <label>
         <div>
-        
+
           <button onClick={this.showEndMenu} className="start-time-dropdown-button">
             <span className="floating-label">End</span>
           </button>

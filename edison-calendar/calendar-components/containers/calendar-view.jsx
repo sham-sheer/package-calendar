@@ -29,6 +29,7 @@ class CalendarView extends Component {
 
   componentDidMount(){
     $('#calendar').fullCalendar({
+      themeSystem: 'bootstrap4',
       header: {
         left: 'prev,next today',
 				center: 'title',
